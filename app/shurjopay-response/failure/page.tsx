@@ -1,8 +1,17 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function PaymentFailure() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <PaymentFailureContent />
+        </Suspense>
+    );
+}
+
+function PaymentFailureContent() {
     const searchParams = useSearchParams();
     const orderId = searchParams.get("order_id");
 

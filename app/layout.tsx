@@ -5,7 +5,7 @@ import "./globals.css";
 import Provider from "./provider";
 
 const noto_serif_bengali = Noto_Serif_Bengali({
-  variable: "--font-noto-seif-bengali",
+  variable: "--font-noto-serif-bengali",
   subsets: ["bengali"]
 })
 
