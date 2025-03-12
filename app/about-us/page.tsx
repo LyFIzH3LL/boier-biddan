@@ -42,15 +42,25 @@ const AboutUs = () => {
         const form = event.currentTarget as HTMLFormElement;
         const nameElement = form.elements.namedItem("donorName");
         const emailElement = form.elements.namedItem("donorEmail");
+        const addressElement = form.elements.namedItem("donorAddress");
+        const phoneElement = form.elements.namedItem("donorPhone");
+        const cityElement = form.elements.namedItem("donorCity");
 
         const name = (nameElement as HTMLInputElement)?.value;
         const email = (emailElement as HTMLInputElement)?.value;
+        const address = (addressElement as HTMLInputElement)?.value;
+        const phone = (phoneElement as HTMLInputElement)?.value;
+        const city = (cityElement as HTMLInputElement)?.value;
+
 
         try {
             const response = await axios.post('/api/donate', {
                 amount,
-                name,
-                email,
+                customer_name: name,
+                customer_email: email,
+                customer_address: address,
+                customer_phone: phone,
+                customer_city: city,
             });
 
             if (response.data.url) {
@@ -82,30 +92,16 @@ const AboutUs = () => {
                     <Button type="submit" className="w-full">মতামত প্রদান করুন</Button>
                 </form>
             </Card>
-
             <Card className="mt-10 p-6 shadow-lg rounded-lg text-center">
                 <h2 className="text-2xl font-semibold">আমাদের কে সাহায্য করুন</h2>
                 <p className="text-gray-600">আপনাদের প্রতিটি অবদান আমাদের কে অনেক সাহায্য করবে</p>
                 <form className="mt-5 space-y-4" onSubmit={handleSubmitDonation}>
-                    <Input
-                        type="number"
-                        placeholder="সাহায্যের পরিমান"
-                        name="amount"
-                        required
-                        onChange={(e) => setAmount(Number(e.target.value))}
-                    />
-                    <Input
-                        type="text"
-                        placeholder="আপনার নাম"
-                        name="donorName"
-                        required
-                    />
-                    <Input
-                        type="email"
-                        placeholder="আপনার ইমেইল"
-                        name="donorEmail"
-                        required
-                    />
+                    <Input type="number" placeholder="সাহায্যের পরিমান" name="amount" required onChange={(e) => setAmount(Number(e.target.value))} />
+                    <Input type="text" placeholder="আপনার নাম" name="donorName" required />
+                    <Input type="email" placeholder="আপনার ইমেইল" name="donorEmail" required />
+                    <Input type="text" placeholder="আপনার ঠিকানা" name="donorAddress" required />
+                    <Input type="text" placeholder="আপনার শহর" name="donorCity" required />
+                    <Input type="tel" placeholder="আপনার ফোন নম্বর" name="donorPhone" required />
                     <Button type="submit" className="w-full">অনুদান দিন</Button>
                 </form>
             </Card>
