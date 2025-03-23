@@ -41,3 +41,9 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+<<<<<<< HEAD
+=======
+
+# clerk configuration (can include secrets)
+/.clerk/
+>>>>>>> 5956995 (Added a carousel in hero section)

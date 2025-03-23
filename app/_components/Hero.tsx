@@ -3,12 +3,16 @@ import { Button, Accordion, AccordionItem } from '@heroui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function Hero() {
     const stories = [
         { src: '/story1.jpg', alt: 'story 1', title: 'মজার গল্প তৈরি করুন' },
         { src: '/story2.jpg', alt: 'story 2', title: 'মজার ছবি তৈরি করুন' },
-        { src: '/story3.jpg', alt: 'story 3', title: 'নিজের ভাষায় গল্প উপভোগ করুন' }
+        { src: '/story3.jpg', alt: 'story 3', title: 'নিজের ভাষায় গল্প উপভোগ করুন' },
+        { src: '/story4.jpg', alt: 'story 4', title: 'অন্যদের বানানো গল্প দেখুন ও উপভোগ করুন' }
     ];
 
     const faqs = [
@@ -21,6 +25,21 @@ function Hero() {
             answer: 'গল্পের জন্য Gemini Model এবং ছবি জেনারেশনের জন্য Hugging Face-এর Black Forest Labs নামে একটি মডেল ব্যবহার করা হচ্ছে।'
         }
     ];
+
+    // React Slick settings
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        responsive: [
+            { breakpoint: 1024, settings: { slidesToShow: 2 } },
+            { breakpoint: 768, settings: { slidesToShow: 1 } }
+        ]
+    };
 
     return (
         <div className="text-white min-h-screen">
@@ -46,29 +65,23 @@ function Hero() {
                     </div>
                 </div>
 
-                {/* Features Section */}
+                {/* React Slick Carousel Section */}
                 <div className="mt-20">
-                    <h3 className="text-5xl sm:text-6xl font-bold text-center text-primary font-noto-serif-bengali mb-20">
+                    <h3 className="text-5xl sm:text-6xl font-bold text-center text-primary font-noto-serif-bengali mb-10">
                         আমাদের বৈশিষ্ট্যসমূহ
                     </h3>
-                    <div className="flex justify-center gap-10 sm:gap-20 lg:gap-40 flex-wrap">
-                        {stories.map((story) => (
-                            <div key={story.alt} className="mx-4 text-center max-w-xs sm:max-w-sm">
+                    <Slider {...settings} className="mx-auto max-w-4xl">
+                        {stories.map((story, index) => (
+                            <div key={index} className="p-4">
                                 <div className="relative">
-                                    <Image
-                                        src={story.src}
-                                        alt={story.alt}
-                                        width={300}
-                                        height={100}
-                                        className="rounded-lg brightness-50"
-                                    />
-                                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl sm:text-3xl font-noto-sans-serif font-bold text-center">
+                                    <Image src={story.src} alt={story.alt} width={400} height={250} className="rounded-lg brightness-50 w-full" />
+                                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl font-bold text-center">
                                         {story.title}
                                     </div>
                                 </div>
                             </div>
                         ))}
-                    </div>
+                    </Slider>
                 </div>
 
                 {/* FAQ Section */}
