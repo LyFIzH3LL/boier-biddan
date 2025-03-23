@@ -1,4 +1,5 @@
 "use client";
+
 import {
     Button,
     Navbar,
@@ -31,7 +32,8 @@ function Header() {
     };
 
     return (
-        <Navbar maxWidth="full">
+        <Navbar maxWidth="full" className="relative z-50">
+            {/* Left: Logo & Hamburger */}
             <NavbarContent justify="start" className="flex items-center p-2">
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
@@ -39,14 +41,14 @@ function Header() {
                     onClick={() => handleMenuToggle(!isMenuOpen)}
                 />
                 <NavbarBrand className="flex items-center">
-                    <Image src={"/logo.svg"} alt="logo" width={40} height={40} />
+                    <Image src="/logo.svg" alt="logo" width={40} height={40} />
                     <h2 className="font-noto_serif_bengali font-bold text-primary ml-3 text-xl sm:text-2xl md:text-2xl lg:text-3xl">
                         বইয়ের বিদ্বান
                     </h2>
                 </NavbarBrand>
             </NavbarContent>
 
-            {/* Desktop Menu */}
+            {/* Center: Desktop Menu */}
             <NavbarContent justify="center" className="hidden sm:flex">
                 {MenuList.map((item, index) => (
                     <NavbarItem
@@ -58,26 +60,29 @@ function Header() {
                 ))}
             </NavbarContent>
 
-            {/* Right-aligned Button and User Button */}
+            {/* Right: Button + Clerk User Button */}
             <NavbarContent justify="end" className="flex items-center">
-                <Link href={"/dashboard"}>
-                    <Button color="primary">
+                <Link href="/dashboard">
+                    <Button color="primary" className="mr-2">
                         {isSignedIn ? "Dashboard" : "Get Started"}
                     </Button>
                 </Link>
                 <UserButton />
             </NavbarContent>
 
-            {/* Mobile Menu - Only visible when menu is open */}
-            {isMenuOpen && (
-                <NavbarMenu className="sm:hidden">
-                    {MenuList.map((item, index) => (
-                        <NavbarMenuItem key={index}>
-                            <Link href={item.path}>{item.name}</Link>
-                        </NavbarMenuItem>
-                    ))}
-                </NavbarMenu>
-            )}
+            {/* Mobile Menu: Always Mounted, visibility toggled */}
+            <NavbarMenu
+                className={`sm:hidden absolute top-full left-0 w-full bg-white shadow-md transition-all duration-300 ${isMenuOpen ? "block" : "hidden"
+                    }`}
+            >
+                {MenuList.map((item, index) => (
+                    <NavbarMenuItem key={index} className="p-2 border-b border-gray-100">
+                        <Link href={item.path} onClick={() => setIsMenuOpen(false)}>
+                            {item.name}
+                        </Link>
+                    </NavbarMenuItem>
+                ))}
+            </NavbarMenu>
         </Navbar>
     );
 }
