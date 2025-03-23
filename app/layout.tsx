@@ -26,14 +26,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${raleway.variable}, ${noto_serif_bengali.variable} antialiased`}
-      >
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`${raleway.variable} ${noto_serif_bengali.variable} antialiased`}>
         <Provider>
           {children}
         </Provider>
-
       </body>
     </html>
+
   );
 }
